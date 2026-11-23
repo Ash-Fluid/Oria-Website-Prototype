@@ -242,6 +242,37 @@
   html[data-theme="light"] .chart .dot { fill: var(--ink); }
   html[data-theme="light"] .chart-labels span:nth-child(2) { color: rgba(19, 23, 34, .45); }
   html[data-theme="light"] .strip-sec { padding-top: clamp(60px, 8vw, 110px); }
+  /* ================= Compounding graph */
+  .grow { padding: clamp(40px, 6vw, 90px) 0 clamp(80px, 10vw, 140px); --g-band: var(--text-on-ink); --g-band-text: var(--ink); --g-rose: var(--rose); }
+  .grow h2 { font-size: clamp(36px, 5vw, 68px); max-width: 16ch; }
+  .grow-fig { display: grid; grid-template-columns: minmax(0, 1fr) 210px; gap: 14px 22px; margin-top: clamp(36px, 5vw, 64px); }
+  .grow-chart { grid-area: 1 / 1; } .grow-labels { grid-area: 1 / 2; } .grow-axis { grid-area: 2 / 1; }
+  .grow-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .grow .g-area { fill: var(--g-rose); opacity: .16; }
+  .grow .g-band { fill: var(--g-band); }
+  .grow .g-line { fill: none; stroke: var(--g-rose); stroke-width: 1.4; }
+  .grow .g-dash { stroke: var(--g-rose); stroke-width: 1; stroke-dasharray: 5 6; opacity: .7; }
+  .grow .g-dot { fill: var(--g-rose); }
+  .grow .g-dot-top { fill: var(--blush); stroke: var(--g-band); stroke-width: 2; }
+  .grow .g-axis { stroke: var(--text-on-ink); stroke-width: 1.5; }
+  .grow .g-oria { font: 400 36px var(--serif); fill: var(--g-band-text); letter-spacing: .02em; }
+  .grow .g-you { font: italic 400 30px var(--serif); fill: var(--g-rose); }
+  .grow-axis { display: flex; justify-content: space-between;  font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-on-ink); }
+  .grow-labels { position: relative; list-style: none; margin: 0; padding: 0; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+  .grow-labels li { position: absolute; left: 0; top: var(--y); translate: 0 -50%; white-space: nowrap; color: var(--text-on-ink); }
+  .grow-labels li.g-top { color: var(--muted-on-ink); }
+  .grow-note { margin-top: clamp(40px, 5vw, 72px); max-width: 30ch; font: 400 clamp(24px, 2.6vw, 34px)/1.25 var(--serif); }
+  .grow-note em { color: var(--g-rose); }
+  @media (max-width: 860px) {
+    .grow-fig { grid-template-columns: 1fr; gap: 14px; }
+    .grow-labels { grid-area: 3 / 1; margin-top: 14px; }
+    .grow-labels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; font-size: 12px; }
+    .grow-labels li { position: static; translate: none; white-space: normal; display: flex; gap: 10px; align-items: baseline; }
+    .grow-labels li::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--g-rose); }
+    .grow-labels li.g-top::before { background: var(--g-band); }
+    .grow .g-oria { font-size: 40px; } .grow .g-you { font-size: 36px; }
+  }
+  html[data-theme="light"] .grow { --g-band-text: var(--cream); --g-rose: var(--rose-deep); }
 </style>
 <script>
   // Page style: remembered across the three pages; light unless the visitor chose dark
@@ -315,6 +346,21 @@
         </svg>
         <div class="chart-labels"><span>Week 1</span><span>Your baseline</span><span>Year 1</span></div>
       </div>
+    </div>
+  </section>
+  <section class="grow">
+    <div class="wrap">
+      <h2 class="rv">The test that builds <em>intelligence.</em></h2>
+      <p class="lede rv">Understanding that gets more personal with every test.</p>
+      <div class="grow-fig rv" role="img" aria-label="Illustration: five layers of your data, self testing, clinical history, wearables data, life inputs and lab reports, build on each other with every test. Oria's biological intelligence grows on top of them.">
+        <div class="grow-chart">
+          <svg viewBox="0 0 760 440" aria-hidden="true"><path class="g-area" d="M0.0 420.0 L19.0 420.0 L38.0 419.8 L57.0 419.5 L76.0 419.1 L95.0 418.4 L114.0 417.6 L133.0 416.5 L152.0 415.2 L171.0 413.6 L190.0 411.7 L209.0 409.6 L228.0 407.2 L247.0 404.5 L266.0 401.5 L285.0 398.2 L304.0 394.5 L323.0 390.5 L342.0 386.2 L361.0 381.5 L380.0 376.4 L399.0 371.0 L418.0 365.2 L437.0 359.1 L456.0 352.5 L475.0 345.6 L494.0 338.2 L513.0 330.5 L532.0 322.3 L551.0 313.7 L570.0 304.7 L589.0 295.2 L608.0 285.4 L627.0 275.1 L646.0 264.3 L665.0 253.1 L684.0 241.4 L703.0 229.2 L722.0 216.6 L741.0 203.6 L760.0 190.0 L760 420 L0 420 Z"/><path class="g-band" d="M0.0 420.0 L19.0 419.9 L38.0 419.7 L57.0 419.2 L76.0 418.4 L95.0 417.3 L114.0 415.8 L133.0 413.9 L152.0 411.6 L171.0 408.8 L190.0 405.6 L209.0 402.0 L228.0 397.8 L247.0 393.0 L266.0 387.8 L285.0 382.0 L304.0 375.6 L323.0 368.7 L342.0 361.1 L361.0 353.0 L380.0 344.2 L399.0 334.8 L418.0 324.7 L437.0 314.0 L456.0 302.6 L475.0 290.5 L494.0 277.8 L513.0 264.3 L532.0 250.1 L551.0 235.1 L570.0 219.5 L589.0 203.0 L608.0 185.9 L627.0 167.9 L646.0 149.2 L665.0 129.7 L684.0 109.4 L703.0 88.3 L722.0 66.3 L741.0 43.6 L760.0 20.0 L760.0 190.0 L741.0 203.6 L722.0 216.6 L703.0 229.2 L684.0 241.4 L665.0 253.1 L646.0 264.3 L627.0 275.1 L608.0 285.4 L589.0 295.2 L570.0 304.7 L551.0 313.7 L532.0 322.3 L513.0 330.5 L494.0 338.2 L475.0 345.6 L456.0 352.5 L437.0 359.1 L418.0 365.2 L399.0 371.0 L380.0 376.4 L361.0 381.5 L342.0 386.2 L323.0 390.5 L304.0 394.5 L285.0 398.2 L266.0 401.5 L247.0 404.5 L228.0 407.2 L209.0 409.6 L190.0 411.7 L171.0 413.6 L152.0 415.2 L133.0 416.5 L114.0 417.6 L95.0 418.4 L76.0 419.1 L57.0 419.5 L38.0 419.8 L19.0 420.0 L0.0 420.0 Z"/><path class="g-line" d="M0.0 420.0 L19.0 420.0 L38.0 419.8 L57.0 419.5 L76.0 419.1 L95.0 418.4 L114.0 417.6 L133.0 416.5 L152.0 415.2 L171.0 413.6 L190.0 411.7 L209.0 409.6 L228.0 407.2 L247.0 404.5 L266.0 401.5 L285.0 398.2 L304.0 394.5 L323.0 390.5 L342.0 386.2 L361.0 381.5 L380.0 376.4 L399.0 371.0 L418.0 365.2 L437.0 359.1 L456.0 352.5 L475.0 345.6 L494.0 338.2 L513.0 330.5 L532.0 322.3 L551.0 313.7 L570.0 304.7 L589.0 295.2 L608.0 285.4 L627.0 275.1 L646.0 264.3 L665.0 253.1 L684.0 241.4 L703.0 229.2 L722.0 216.6 L741.0 203.6 L760.0 190.0"/><path class="g-line" d="M0.0 420.0 L19.0 419.9 L38.0 419.8 L57.0 419.4 L76.0 418.9 L95.0 418.1 L114.0 417.2 L133.0 416.1 L152.0 414.8 L171.0 413.2 L190.0 411.5 L209.0 409.5 L228.0 407.3 L247.0 404.8 L266.0 402.1 L285.0 399.2 L304.0 396.0 L323.0 392.6 L342.0 388.9 L361.0 385.0 L380.0 380.8 L399.0 376.4 L418.0 371.7 L437.0 366.7 L456.0 361.5 L475.0 356.0 L494.0 350.2 L513.0 344.2 L532.0 337.9 L551.0 331.3 L570.0 324.4 L589.0 317.3 L608.0 309.8 L627.0 302.1 L646.0 294.1 L665.0 285.8 L684.0 277.2 L703.0 268.4 L722.0 259.2 L741.0 249.8 L760.0 240.0"/><path class="g-line" d="M0.0 420.0 L19.0 419.9 L38.0 419.7 L57.0 419.3 L76.0 418.7 L95.0 418.0 L114.0 417.1 L133.0 416.0 L152.0 414.8 L171.0 413.4 L190.0 411.9 L209.0 410.2 L228.0 408.3 L247.0 406.3 L266.0 404.1 L285.0 401.7 L304.0 399.2 L323.0 396.5 L342.0 393.7 L361.0 390.7 L380.0 387.5 L399.0 384.2 L418.0 380.7 L437.0 377.0 L456.0 373.2 L475.0 369.2 L494.0 365.1 L513.0 360.8 L532.0 356.3 L551.0 351.7 L570.0 346.9 L589.0 341.9 L608.0 336.8 L627.0 331.5 L646.0 326.1 L665.0 320.5 L684.0 314.7 L703.0 308.8 L722.0 302.7 L741.0 296.4 L760.0 290.0"/><path class="g-line" d="M0.0 420.0 L19.0 419.9 L38.0 419.6 L57.0 419.2 L76.0 418.7 L95.0 418.1 L114.0 417.4 L133.0 416.5 L152.0 415.6 L171.0 414.5 L190.0 413.4 L209.0 412.2 L228.0 410.8 L247.0 409.4 L266.0 407.9 L285.0 406.3 L304.0 404.6 L323.0 402.9 L342.0 401.0 L361.0 399.1 L380.0 397.0 L399.0 394.9 L418.0 392.7 L437.0 390.5 L456.0 388.1 L475.0 385.7 L494.0 383.2 L513.0 380.6 L532.0 377.9 L551.0 375.2 L570.0 372.3 L589.0 369.4 L608.0 366.5 L627.0 363.4 L646.0 360.3 L665.0 357.1 L684.0 353.8 L703.0 350.5 L722.0 347.1 L741.0 343.6 L760.0 340.0"/><path class="g-line" d="M0.0 420.0 L19.0 419.9 L38.0 419.7 L57.0 419.4 L76.0 419.1 L95.0 418.7 L114.0 418.3 L133.0 417.8 L152.0 417.3 L171.0 416.8 L190.0 416.2 L209.0 415.6 L228.0 414.9 L247.0 414.2 L266.0 413.5 L285.0 412.7 L304.0 411.9 L323.0 411.1 L342.0 410.2 L361.0 409.4 L380.0 408.5 L399.0 407.5 L418.0 406.6 L437.0 405.6 L456.0 404.5 L475.0 403.5 L494.0 402.4 L513.0 401.3 L532.0 400.2 L551.0 399.1 L570.0 397.9 L589.0 396.7 L608.0 395.5 L627.0 394.3 L646.0 393.0 L665.0 391.7 L684.0 390.4 L703.0 389.1 L722.0 387.8 L741.0 386.4 L760.0 385.0"/><line class="g-dash" x1="243.2" y1="394.0" x2="243.2" y2="420"/><circle class="g-dot-top" cx="243.2" cy="394.0" r="7"/><circle class="g-dot" cx="243.2" cy="405.1" r="5"/><line class="g-dash" x1="425.6" y1="320.5" x2="425.6" y2="420"/><circle class="g-dot-top" cx="425.6" cy="320.5" r="7"/><circle class="g-dot" cx="425.6" cy="362.8" r="5"/><line class="g-dash" x1="592.8" y1="199.7" x2="592.8" y2="420"/><circle class="g-dot-top" cx="592.8" cy="199.7" r="7"/><circle class="g-dot" cx="592.8" cy="293.3" r="5"/><line class="g-dash" x1="714.4" y1="75.2" x2="714.4" y2="420"/><circle class="g-dot-top" cx="714.4" cy="75.2" r="7"/><circle class="g-dot" cx="714.4" cy="221.7" r="5"/><circle class="g-dot" cx="755" cy="190" r="5"/><circle class="g-dot" cx="755" cy="240" r="5"/><circle class="g-dot" cx="755" cy="290" r="5"/><circle class="g-dot" cx="755" cy="340" r="5"/><circle class="g-dot" cx="755" cy="385" r="5"/><line class="g-axis" x1="0" y1="420" x2="760" y2="420"/><text class="g-oria" x="736" y="216" text-anchor="end">Oria</text><text class="g-you" x="736" y="334" text-anchor="end">For you</text></svg>
+          
+        </div>
+        <div class="grow-axis"><span>First test</span><span>Longitudinal insights</span></div>
+        <ul class="grow-labels"><li class="g-top" style="--y:23.9%"><span>Biological intelligence</span></li><li style="--y:43.2%"><span>Self testing</span></li><li style="--y:54.5%"><span>Clinical history</span></li><li style="--y:65.9%"><span>Wearables data</span></li><li style="--y:77.3%"><span>Life inputs</span></li><li style="--y:87.5%"><span>Lab reports</span></li></ul>
+      </div>
+      <p class="grow-note rv">Frequent tests of your baseline and hormone levels, joined by your other inputs, give you real longitudinal <em>insight.</em></p>
     </div>
   </section>
 
