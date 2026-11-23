@@ -1,11 +1,12 @@
 # Oria website prototype
 
-Static prototype of a simplified fluidmedical.com: three pages, no build step.
+Static prototype of a simplified fluidmedical.com: four pages, no build step.
 
 | Page | File |
 |---|---|
 | Home | `index.html` |
 | Oria (product) | `oria.html` |
+| Women's health | `womens-health.html` |
 | About | `about.html` |
 
 Images are in `assets/`. The two test-card images are also embedded in the HTML.
@@ -19,8 +20,9 @@ Images are in `assets/`. The two test-card images are also embedded in the HTML.
 
 ## Notes
 
+- Light and dark styles: the toggle is in the home page nav and the choice is remembered on the other pages.
 - This is a prototype. The waitlist form is not connected to anything.
 - Pages carry a `noindex` tag so search engines do not list them.
-- Links to pages that are not prototyped (Women's health, Security, Contact, Demo, Perspectives) go to the live fluidmedical.com.
+- Links to pages that are not prototyped (Security, Contact, Demo, Perspectives) go to the live fluidmedical.com.
 - The Oria page embeds the test flow from `https://ash-fluid.github.io/Oria-Testing-Process/`.
 - Fonts load from Google Fonts.
