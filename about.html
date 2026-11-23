@@ -180,7 +180,39 @@
     html { scroll-behavior: auto; }
     .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
   }
+  /* ================= Light style (switched by data-theme on <html>) ================= */
+  html[data-theme="light"] { --text-on-ink: #131722; --muted-on-ink: rgba(19, 23, 34, .64); --line-on-ink: rgba(19, 23, 34, .14); }
+  html[data-theme="light"] body { background: var(--cream); color: var(--text-on-cream); }
+  html[data-theme="light"] h1 em, html[data-theme="light"] h2 em, html[data-theme="light"] blockquote em { color: var(--rose-deep); }
+  html[data-theme="light"] .nav.scrolled { background: rgba(247, 244, 240, .84); }
+  html[data-theme="light"] .nav-logo img { filter: brightness(0); opacity: .88; }
+  html[data-theme="light"] .nav-links a.pill, html[data-theme="light"] .btn { background: var(--ink); color: var(--cream); }
+  html[data-theme="light"] .nav-links a.pill:hover, html[data-theme="light"] .btn:hover { background: var(--rose-deep); color: var(--cream); }
+  html[data-theme="light"] :focus-visible { outline-color: var(--rose-deep); }
+  html[data-theme="light"] .hero::before { background: radial-gradient(closest-side, rgba(236, 200, 188, .6), transparent 70%); }
+  /* One cream surface; the closing block and footer are the single dark anchor */
+  html[data-theme="light"] .light { background: transparent; border-radius: 0; margin-top: 0; }
+  html[data-theme="light"] .join {
+    margin-top: clamp(64px, 9vw, 130px);
+    background: var(--ink); color: var(--cream);
+    border-radius: clamp(36px, 6vw, 88px) clamp(36px, 6vw, 88px) 0 0;
+  }
+  html[data-theme="light"] .join h2 em { color: var(--rose); }
+  html[data-theme="light"] .join form { border-color: transparent; }
+  html[data-theme="light"] .join .btn { background: var(--rose); color: var(--ink); }
+  html[data-theme="light"] .join .btn:hover { background: var(--blush); color: var(--ink); }
+  html[data-theme="light"] .join .fine, html[data-theme="light"] .join .lede, html[data-theme="light"] .join p { color: rgba(247, 244, 240, .6); }
+  html[data-theme="light"] .join .done, html[data-theme="light"] .join .link { color: var(--cream); }
+  html[data-theme="light"] footer { background: var(--ink); color: rgba(247, 244, 240, .55); border-top-color: rgba(247, 244, 240, .14); }
+  html[data-theme="light"] footer a:hover { color: var(--cream); }
+  html[data-theme="light"] .face { background: rgba(19, 23, 34, .07); color: var(--rose-deep); }
+  html[data-theme="light"] .people small { color: var(--rose-deep); }
+  html[data-theme="light"] .story { padding-top: clamp(60px, 8vw, 110px); }
 </style>
+<script>
+  // Page style: remembered across the three pages; light unless the visitor chose dark
+  (function(){var t='light';try{t=localStorage.getItem('oria-theme')||'light';}catch(e){}document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');})();
+</script>
 </head>
 <body>
 

@@ -202,7 +202,58 @@
     .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
     .panel { opacity: 1; }
   }
+  /* ================= Light style (switched by data-theme on <html>) ================= */
+  html[data-theme="light"] { --text-on-ink: #131722; --muted-on-ink: rgba(19, 23, 34, .64); --line-on-ink: rgba(19, 23, 34, .14); }
+  html[data-theme="light"] body { background: var(--cream); color: var(--text-on-cream); }
+  html[data-theme="light"] h1 em, html[data-theme="light"] h2 em, html[data-theme="light"] blockquote em { color: var(--rose-deep); }
+  html[data-theme="light"] h3 em, .light h3 em { color: var(--rose-deep); }
+  html[data-theme="light"] .nav.scrolled { background: rgba(247, 244, 240, .84); }
+  html[data-theme="light"] .nav-logo img { filter: brightness(0); opacity: .88; }
+  html[data-theme="light"] .nav-links a.pill, html[data-theme="light"] .btn { background: var(--ink); color: var(--cream); }
+  html[data-theme="light"] .nav-links a.pill:hover, html[data-theme="light"] .btn:hover { background: var(--rose-deep); color: var(--cream); }
+  html[data-theme="light"] :focus-visible { outline-color: var(--rose-deep); }
+  html[data-theme="light"] .hero::before { background: radial-gradient(closest-side, rgba(236, 200, 188, .6), transparent 70%); }
+  /* One cream surface; the closing block and footer are the single dark anchor */
+  html[data-theme="light"] .light { background: transparent; border-radius: 0; margin-top: 0; }
+  html[data-theme="light"] .join {
+    margin-top: clamp(64px, 9vw, 130px);
+    background: var(--ink); color: var(--cream);
+    border-radius: clamp(36px, 6vw, 88px) clamp(36px, 6vw, 88px) 0 0;
+  }
+  html[data-theme="light"] .join h2 em { color: var(--rose); }
+  html[data-theme="light"] .join form { border-color: transparent; }
+  html[data-theme="light"] .join .btn { background: var(--rose); color: var(--ink); }
+  html[data-theme="light"] .join .btn:hover { background: var(--blush); color: var(--ink); }
+  html[data-theme="light"] .join .fine, html[data-theme="light"] .join .lede, html[data-theme="light"] .join p { color: rgba(247, 244, 240, .6); }
+  html[data-theme="light"] .join .done, html[data-theme="light"] .join .link { color: var(--cream); }
+  html[data-theme="light"] footer { background: var(--ink); color: rgba(247, 244, 240, .55); border-top-color: rgba(247, 244, 240, .14); }
+  html[data-theme="light"] footer a:hover { color: var(--cream); }
+  html[data-theme="light"] .hero-note, html[data-theme="light"] .panel .fine { color: rgba(19, 23, 34, .5); }
+  html[data-theme="light"] .phone { box-shadow: 0 0 0 9px #1a2030, 0 50px 90px -40px rgba(19, 23, 34, .45); }
+  html[data-theme="light"] .oria-hero [onclick] { box-shadow: 0 0 0 1px #8E939B, 0 0 0 2.5px rgba(255,255,255,.6), inset 0 0 0 1px rgba(0,0,0,.2), 0 50px 90px -30px rgba(19, 23, 34, .38) !important; }
+  html[data-theme="light"] .how .card-crop { box-shadow: 0 50px 90px -35px rgba(19, 23, 34, .5), 0 0 0 1px rgba(19, 23, 34, .06); }
+  html[data-theme="light"] .steps b, html[data-theme="light"] .panel small { color: var(--rose-deep); }
+  html[data-theme="light"] .voice { padding-top: clamp(64px, 9vw, 130px); }
+
+  /* ---------- Style toggle ---------- */
+  .theme-toggle { display: inline-flex; padding: 3px; border: 1px solid var(--line-on-ink); border-radius: 999px; }
+  .theme-toggle button {
+    font: 500 13px/1 var(--sans); color: var(--muted-on-ink); background: transparent;
+    border: 0; border-radius: 999px; padding: 7px 12px; cursor: pointer; transition: background .2s, color .2s;
+  }
+  html:not([data-theme="light"]) .theme-toggle [data-set="dark"] { background: var(--cream); color: var(--ink); }
+  html[data-theme="light"] .theme-toggle [data-set="light"] { background: var(--ink); color: var(--cream); }
+  @media (max-width: 520px) {
+    .nav-links { gap: 10px; }
+    .theme-toggle button { padding: 6px 9px; font-size: 12px; }
+    .nav-links a.pill { padding: 9px 14px; font-size: 14px; }
+    .nav-logo img { height: 34px; }
+  }
 </style>
+<script>
+  // Page style: remembered across the three pages; light unless the visitor chose dark
+  (function(){var t='light';try{t=localStorage.getItem('oria-theme')||'light';}catch(e){}document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');})();
+</script>
 </head>
 <body>
 
@@ -215,6 +266,10 @@
       <a href="oria.html">Oria</a>
       <a href="https://fluidmedical.com/womens-health/">Women’s health</a>
       <a href="about.html">About</a>
+      <span class="theme-toggle" role="group" aria-label="Page style">
+        <button type="button" data-set="light">Light</button>
+        <button type="button" data-set="dark">Dark</button>
+      </span>
       <a class="pill" href="#join">Join the waitlist</a>
     </nav>
   </div>
@@ -692,6 +747,16 @@
     });
   }, { rootMargin: '-50% 0px -50% 0px' });
   panels.forEach(p => pick.observe(p));
+
+  // Style toggle
+  const themeBtns = [...document.querySelectorAll('.theme-toggle button')];
+  const showTheme = () => themeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.set === document.documentElement.dataset.theme)));
+  themeBtns.forEach(b => b.addEventListener('click', () => {
+    document.documentElement.dataset.theme = b.dataset.set;
+    try { localStorage.setItem('oria-theme', b.dataset.set); } catch (e) {}
+    showTheme();
+  }));
+  showTheme();
 
   // Prototype only: the form is not connected to anything
   document.getElementById('waitlist').addEventListener('submit', (e) => {
