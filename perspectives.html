@@ -242,6 +242,30 @@
   html[data-theme="light"] .face { background: rgba(19, 23, 34, .07); color: var(--rose-deep); }
   html[data-theme="light"] .people small { color: var(--rose-deep); }
   html[data-theme="light"] .story { padding-top: clamp(60px, 8vw, 110px); }
+  /* ================= Phone menu */
+  .nav-burger { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; margin-right: -10px; padding: 0; border: 0; background: transparent; color: var(--text-on-ink); cursor: pointer; }
+  .nav-burger span, .nav-burger span::before, .nav-burger span::after { display: block; width: 22px; height: 2px; border-radius: 2px; background: currentColor; }
+  .nav-burger span { position: relative; transition: background .2s; }
+  .nav-burger span::before, .nav-burger span::after { content: ""; position: absolute; left: 0; transition: transform .25s, top .25s; }
+  .nav-burger span::before { top: -7px; }
+  .nav-burger span::after { top: 7px; }
+  .nav.open .nav-burger span { background: transparent; }
+  .nav.open .nav-burger span::before { top: 0; transform: rotate(45deg); }
+  .nav.open .nav-burger span::after { top: 0; transform: rotate(-45deg); }
+  .nav-menu { display: none; }
+  @media (max-width: 720px) {
+    .nav-burger { display: inline-flex; }
+    .nav-links .theme-toggle { display: none; }
+    .nav.open { background: #080E1A; border-bottom-color: var(--line-on-ink); }
+    html[data-theme="light"] .nav.open { background: var(--cream); }
+    .nav.open .nav-menu { display: block; }
+    .nav-menu { padding: 0 var(--gutter) 24px; max-height: calc(100dvh - 76px); overflow-y: auto; }
+    .nav-menu a { display: block; padding: 17px 0; border-top: 1px solid var(--line-on-ink); font: 400 26px/1.1 var(--serif); color: var(--text-on-ink); text-decoration: none; }
+    .nav-menu a[aria-current] { color: var(--rose); }
+    html[data-theme="light"] .nav-menu a[aria-current] { color: var(--rose-deep); }
+    .nav-menu .theme-toggle { margin-top: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .nav-burger span, .nav-burger span::before, .nav-burger span::after { transition: none; } }
 </style>
 <script>
   // Page style: remembered across the three pages; light unless the visitor chose dark
@@ -261,9 +285,31 @@
       <a href="clinical.html">Clinical</a>
       <a href="about.html">About</a>
       <a class="pill" href="index.html#join">Join the waitlist</a>
+      <button class="nav-burger" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu"><span></span></button>
     </nav>
   </div>
+  <div class="nav-menu" id="nav-menu"></div>
 </header>
+<script>
+  // Phone menu: built from the main nav links
+  (function () {
+    var bar = document.getElementById('nav'), btn = bar.querySelector('.nav-burger'), menu = document.getElementById('nav-menu');
+    var home = bar.querySelector('.nav-logo').cloneNode(false);
+    home.className = ''; home.removeAttribute('aria-label'); home.textContent = 'Home';
+    var here = location.pathname.split('/').pop(); if (here === '' || here === home.getAttribute('href')) home.setAttribute('aria-current', 'page');
+    menu.appendChild(home);
+    bar.querySelectorAll('.nav-links > a:not(.pill), .nav-links > .theme-toggle').forEach(function (el) { menu.appendChild(el.cloneNode(true)); });
+    function set(open) {
+      bar.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+    }
+    btn.addEventListener('click', function () { set(!bar.classList.contains('open')); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+    addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+    matchMedia('(min-width: 721px)').addEventListener('change', function () { set(false); });
+  })();
+</script>
 
 <main>
   <section class="hero">
